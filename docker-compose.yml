@@ -1,11 +1,11 @@
-version: "2"
+version: "3.3"
 
 services:
   #######
   # DFS #
   #######
   namenode:
-    image: bde2020/hadoop-namenode:1.2.0-hadoop2.8-java8
+    image: bde2020/hadoop-namenode:1.2.1-hadoop2.8.1-java8
     container_name: namenode
     networks:
       - hadoop
@@ -19,7 +19,7 @@ services:
       - ./hadoop.env
   
   datanode1:
-    image: bde2020/hadoop-datanode:1.2.0-hadoop2.8-java8
+    image: bde2020/hadoop-datanode:1.2.1-hadoop2.8.1-java8
     container_name: datanode1
     networks:
       - hadoop
@@ -37,7 +37,7 @@ services:
   ########
 
   resourcemanager:
-    image: bde2020/hadoop-resourcemanager:1.2.0-hadoop2.8-java8
+    image: bde2020/hadoop-resourcemanager:1.2.1-hadoop2.8.1-java8
     container_name: resourcemanager
     networks:
       - hadoop
@@ -50,7 +50,7 @@ services:
       - ./hadoop.env
   
   nodemanager1:
-    image: bde2020/hadoop-nodemanager:1.2.0-hadoop2.8-java8
+    image: bde2020/hadoop-nodemanager:1.2.1-hadoop2.8.1-java8
     container_name: nodemanager1
     networks:
       - hadoop
@@ -63,7 +63,7 @@ services:
       - ./hadoop.env
 
   historyserver:
-    image: bde2020/hadoop-historyserver:1.2.0-hadoop2.8-java8
+    image: bde2020/hadoop-historyserver:1.2.1-hadoop2.8.1-java8
     container_name: historyserver
     networks:
       - hadoop
