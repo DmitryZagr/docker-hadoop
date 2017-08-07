@@ -1,0 +1,124 @@
+version: "3.3"
+
+services:
+  #######
+  # DFS #
+  #######
+  namenode:
+    image: bde2020/hadoop-namenode:1.2.1-hadoop2.8.1-java8
+    volumes:
+      - ~/hadoop-namenode:/hadoop/dfs/name
+    environment:
+      - CLUSTER_NAME=test
+    env_file:
+      - ./hadoop.env
+    ports:
+      - 50070:50070
+    deploy:
+      placement:
+        constraints: [node.role != manager]
+    networks:
+      - hadoop
+  
+#  datanode1:
+#    image: bde2020/hadoop-datanode:1.2.1-hadoop2.8.1-java8
+#    depends_on:
+#      - namenode
+#    volumes:
+#      - /mnt/nvme0n1/hadoop-datanode:/hadoop/dfs/data
+#    env_file:
+#      - ./hadoop.env
+#    ports:
+#      - 50075:50075
+#    deploy:
+#      mode: replicated
+#      replicas: 1
+#      placement:
+#        constraints: [node.role != manager]
+#    networks:
+#      - hadoop
+
+ # datanode2:
+ #   image: bde2020/hadoop-datanode:1.2.1-hadoop2.8.1-java8
+ #   depends_on:
+ #     - namenode
+ #   volumes:
+ #     - /mnt/nvme0n1/hadoop-datanode2:/hadoop/dfs/data
+ #   env_file:
+ #     - ./hadoop.env
+ #   ports:
+ #     - 51075:50075
+ #   deploy:
+ #     mode: replicated
+ #     replicas: 1
+ #     placement:
+ #       constraints: [node.role != manager]
+ #   networks:
+ #     - hadoop
+
+  ########
+  # YARN #
+  ########
+
+  #resourcemanager:
+  #  image: bde2020/hadoop-resourcemanager:1.2.1-hadoop2.8.1-java8
+  #  depends_on:
+  #    - namenode
+  #    - datanode1
+  #  env_file:
+  #    - ./hadoop.env
+  #  ports:
+  #    - 8088:8088
+  #  deploy:
+  #    placement:
+  #      constraints: [node.role == manager]
+  #  networks:
+  #    - hadoop
+  
+  #nodemanager1:
+  #  image: bde2020/hadoop-nodemanager:1.2.1-hadoop2.8.1-java8
+  #  depends_on:
+  #    - namenode
+  #    - datanode1
+  #  env_file:
+  #    - ./hadoop.env
+  #  ports:
+  #    - 8042:8042
+  #  deploy:
+  #    placement:
+  #      constraints: [node.role == manager]
+  #  networks:
+  #    - hadoop
+
+  #historyserver:
+  #  image: bde2020/hadoop-historyserver:1.2.1-hadoop2.8.1-java8
+  #  depends_on:
+  #    - namenode
+  #    - datanode1
+  #  env_file:
+  #    - ./hadoop.env
+  #  volumes:
+  #    - ~/hadoop-historyserver:/hadoop/yarn/timeline
+  #  ports:
+  #    - 8188:8188
+  #  deploy:
+  #    placement:
+  #      constraints: [node.role == manager]
+  #  networks:
+  #    - hadoop
+
+  visualizer:
+    image: dockersamples/visualizer:stable
+    ports:
+      - "8380:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+    networks:
+      - hadoop
+
+networks:
+  hadoop:
+#    external: true
