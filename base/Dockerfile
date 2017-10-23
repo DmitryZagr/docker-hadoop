@@ -69,5 +69,6 @@ ADD entrypoint.sh /entrypoint.sh
 RUN chmod a+x /entrypoint.sh
 
 ADD scripts/loadArchiveToHDFS /bin/loadArchiveToHDFSs
+ADD scripts/extractArchiveInHDFS /root/extractArchiveInHDFS
 
 ENTRYPOINT ["/entrypoint.sh"]

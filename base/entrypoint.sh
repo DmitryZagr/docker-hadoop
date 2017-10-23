@@ -79,4 +79,6 @@ if [ -n "$GANGLIA_HOST" ]; then
     done > /etc/hadoop/hadoop-metrics2.properties
 fi
 
+cp /root/extractArchiveInHDFS /root/hadoop_data/extractArchiveInHDFS
+
 exec $@
