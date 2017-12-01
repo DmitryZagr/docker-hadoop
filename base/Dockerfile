@@ -68,7 +68,7 @@ RUN ln -s /usr/lib/x86_64-linux-gnu/libsnappy.so /opt/hadoop-$HADOOP_VERSION/lib
 ADD entrypoint.sh /entrypoint.sh
 RUN chmod a+x /entrypoint.sh
 
-ADD scripts/loadArchiveToHDFS /bin/loadArchiveToHDFSs
+ADD scripts/loadArchiveToHDFS /bin/loadArchiveToHDFS
 ADD scripts/extractArchiveInHDFS /root/extractArchiveInHDFS
 
 ENTRYPOINT ["/entrypoint.sh"]
