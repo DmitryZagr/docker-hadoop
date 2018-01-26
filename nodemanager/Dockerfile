@@ -1,4 +1,4 @@
-FROM dmitryzagr/hadoop-base:1.2.1-hadoop2.8.1-java8
+FROM dmitryzagr/hadoop-base:hadoop3.0.0-java8
 MAINTAINER Ivan Ermilov <ivan.s.ermilov@gmail.com>
 
 HEALTHCHECK CMD curl -f http://localhost:8042/ || exit 1
